@@ -1,0 +1,454 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Scripts/Player_MovementInput.gd" type="Script" id=1]
+[ext_resource path="res://Images/player.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Hindrance.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Main_Base.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Enemy_MovementLoop.gd" type="Script" id=6]
+[ext_resource path="res://Images/collectible.png" type="Texture" id=7]
+[ext_resource path="res://Images/enemy.png" type="Texture" id=8]
+[ext_resource path="res://Images/hindrance.png" type="Texture" id=9]
+[ext_resource path="res://Images/slider.png" type="Texture" id=10]
+[ext_resource path="res://Scripts/PlayerEvents.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/DirectionRotation.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Door.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Collectible.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/Slider.gd" type="Script" id=15]
+[ext_resource path="res://Fonts/theme_big.tres" type="Theme" id=16]
+[ext_resource path="res://Fonts/theme_small.tres" type="Theme" id=17]
+[ext_resource path="res://Scripts/CollectibleCount.gd" type="Script" id=18]
+[ext_resource path="res://Scripts/InterfacePopup.gd" type="Script" id=19]
+[ext_resource path="res://Fonts/theme_small_outline_small.tres" type="Theme" id=20]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 96, 6.4 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CameraMain" type="Camera2D" parent="."]
+position = Vector2( 512, 288 )
+current = true
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Background" type="Node2D" parent="Objects"]
+
+[node name="Border" type="Node2D" parent="Objects/Background"]
+
+[node name="BorderLeft" type="StaticBody2D" parent="Objects/Background/Border"]
+position = Vector2( -16, 288 )
+scale = Vector2( 0.5, 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Border/BorderLeft"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Border/BorderLeft"]
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="BorderRight" type="StaticBody2D" parent="Objects/Background/Border"]
+position = Vector2( 1040, 288 )
+scale = Vector2( 0.5, 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Border/BorderRight"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Border/BorderRight"]
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="BorderUp" type="StaticBody2D" parent="Objects/Background/Border"]
+position = Vector2( 512, -16 )
+scale = Vector2( 17, 0.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Border/BorderUp"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Border/BorderUp"]
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="BorderDownLeft" type="StaticBody2D" parent="Objects/Background/Border"]
+position = Vector2( 784, 592 )
+scale = Vector2( 8.5, 0.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Border/BorderDownLeft"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Border/BorderDownLeft"]
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="BorderDownRight" type="StaticBody2D" parent="Objects/Background/Border"]
+position = Vector2( 208, 592 )
+scale = Vector2( 7.5, 0.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Border/BorderDownRight"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Border/BorderDownRight"]
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="Doors" type="Node2D" parent="Objects/Background"]
+
+[node name="Exit" type="StaticBody2D" parent="Objects/Background/Doors"]
+position = Vector2( 480, 592 )
+scale = Vector2( 1, 0.5 )
+script = ExtResource( 13 )
+
+[node name="Area2D" type="Area2D" parent="Objects/Background/Doors/Exit"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Objects/Background/Doors/Exit/Area2D"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Doors/Exit"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Doors/Exit"]
+color = Color( 0.22, 0.191437, 0.1782, 1 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="Obstacles" type="Node2D" parent="Objects/Background"]
+
+[node name="Obstacle_00" type="StaticBody2D" parent="Objects/Background/Obstacles"]
+position = Vector2( 320, 64 )
+scale = Vector2( 1, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Obstacles/Obstacle_00"]
+position = Vector2( 32, 32 )
+shape = SubResource( 4 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Obstacles/Obstacle_00"]
+position = Vector2( 32, 32 )
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, -32, 32, 32, 32, 32, -32 )
+
+[node name="Obstacle_01" type="StaticBody2D" parent="Objects/Background/Obstacles"]
+position = Vector2( 64, 0 )
+scale = Vector2( 1, 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Background/Obstacles/Obstacle_01"]
+position = Vector2( 96, 6.4 )
+shape = SubResource( 6 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Objects/Background/Obstacles/Obstacle_01"]
+position = Vector2( 32, 32 )
+color = Color( 0.690196, 0.690196, 0.690196, 1 )
+polygon = PoolVector2Array( -32, -32, -32, -19.2, 160, -19.2, 160, -32 )
+
+[node name="Hazards" type="Node2D" parent="Objects"]
+
+[node name="Hindrance" type="Area2D" parent="Objects/Hazards"]
+position = Vector2( 576, 0 )
+script = ExtResource( 3 )
+floatFactor = 2.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/Hazards/Hindrance"]
+position = Vector2( 32, 416 )
+polygon = PoolVector2Array( -32, -288, -32, 96, 288, 96, 288, 32, 416, 32, 416, -416, 32, -416, 32, -288 )
+
+[node name="TextureRect" type="TextureRect" parent="Objects/Hazards/Hindrance"]
+margin_top = 128.0
+margin_right = 64.0
+margin_bottom = 512.0
+texture = ExtResource( 9 )
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Objects/Hazards/Hindrance"]
+margin_left = 64.0
+margin_right = 320.0
+margin_bottom = 512.0
+texture = ExtResource( 9 )
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Objects/Hazards/Hindrance"]
+margin_left = 320.0
+margin_right = 448.0
+margin_bottom = 448.0
+texture = ExtResource( 9 )
+stretch_mode = 2
+
+[node name="Slider" type="Area2D" parent="Objects/Hazards"]
+position = Vector2( 64, 64 )
+script = ExtResource( 15 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/Hazards/Slider"]
+position = Vector2( 32, 352 )
+polygon = PoolVector2Array( -32, -352, -32, 96, 96, 96, 96, -96, 160, -96, 160, -352, 96, -352 )
+
+[node name="TextureRect_00" type="TextureRect" parent="Objects/Hazards/Slider"]
+margin_right = 128.0
+margin_bottom = 448.0
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="TextureRect_01" type="TextureRect" parent="Objects/Hazards/Slider"]
+margin_left = 128.0
+margin_right = 192.0
+margin_bottom = 256.0
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="Collectibles" type="Node2D" parent="Objects"]
+
+[node name="Collectible_00" type="Area2D" parent="Objects/Collectibles"]
+position = Vector2( 736, 416 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Collectibles/Collectible_00"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Collectibles/Collectible_00"]
+texture = ExtResource( 7 )
+
+[node name="Collectible_01" type="Area2D" parent="Objects/Collectibles"]
+position = Vector2( 288, 352 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Collectibles/Collectible_01"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Collectibles/Collectible_01"]
+texture = ExtResource( 7 )
+
+[node name="Collectible_02" type="Area2D" parent="Objects/Collectibles"]
+position = Vector2( 160, 96 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Collectibles/Collectible_02"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Collectibles/Collectible_02"]
+texture = ExtResource( 7 )
+
+[node name="Collectible_03" type="Area2D" parent="Objects/Collectibles"]
+position = Vector2( 96, 480 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Collectibles/Collectible_03"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Collectibles/Collectible_03"]
+texture = ExtResource( 7 )
+
+[node name="Collectible_04" type="Area2D" parent="Objects/Collectibles"]
+position = Vector2( 864, 160 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Collectibles/Collectible_04"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Collectibles/Collectible_04"]
+texture = ExtResource( 7 )
+
+[node name="Player" type="Node2D" parent="Objects"]
+
+[node name="Entity" type="Area2D" parent="Objects/Player"]
+position = Vector2( 480, 160 )
+script = ExtResource( 1 )
+moveTimeTile = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Player/Entity"]
+scale = Vector2( 0.6, 0.6 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Player/Entity"]
+texture = ExtResource( 2 )
+script = ExtResource( 12 )
+
+[node name="PlayerEvents" type="Node2D" parent="Objects/Player"]
+script = ExtResource( 11 )
+
+[node name="Enemies" type="Node2D" parent="Objects"]
+
+[node name="Enemy_00" type="Area2D" parent="Objects/Enemies"]
+position = Vector2( 992, 32 )
+script = ExtResource( 6 )
+moveTimeTile = 0.15
+moveDelayLoop = 0.05
+LoopTypeString = "inverted"
+pathDirections = [ "move_left", "move_down", "move_right", "move_down", "move_left", "move_down", "move_right", "move_down", "move_left", "move_down", "move_right", "move_down", "move_left", "move_down", "move_right" ]
+pathSteps = [ 5, 1, 5, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 4 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Enemies/Enemy_00"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Enemies/Enemy_00"]
+texture = ExtResource( 8 )
+script = ExtResource( 12 )
+
+[node name="Enemy_01" type="Area2D" parent="Objects/Enemies"]
+position = Vector2( 480, 480 )
+script = ExtResource( 6 )
+moveTimeTile = 0.3
+moveDelayStep = 0.1
+pathSteps = [ 6 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Enemies/Enemy_01"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Enemies/Enemy_01"]
+texture = ExtResource( 8 )
+script = ExtResource( 12 )
+
+[node name="Enemy_02" type="Area2D" parent="Objects/Enemies"]
+position = Vector2( 160, 416 )
+script = ExtResource( 6 )
+pathDirections = [ "move_up" ]
+pathSteps = [ 5 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Enemies/Enemy_02"]
+scale = Vector2( 0.998, 0.998 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Objects/Enemies/Enemy_02"]
+texture = ExtResource( 8 )
+script = ExtResource( 12 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="CollectiblesRemaining" type="Control" parent="HUD"]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Text" type="RichTextLabel" parent="HUD/CollectiblesRemaining"]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 288.0
+theme = ExtResource( 20 )
+custom_colors/default_color = Color( 0.139583, 0.67, 0.0335, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Collectibles Remaining:[/center]"
+text = "Collectibles Remaining:"
+fit_content_height = true
+
+[node name="Number" type="RichTextLabel" parent="HUD/CollectiblesRemaining"]
+margin_left = 272.0
+margin_top = -32.0
+margin_right = 304.0
+theme = ExtResource( 17 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[b]00[/b]"
+text = "00"
+fit_content_height = true
+script = ExtResource( 18 )
+
+[node name="Popups" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enable = true
+
+[node name="PlayerHit" type="Control" parent="Popups"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 19 )
+
+[node name="ScreenFilter" type="Polygon2D" parent="Popups/PlayerHit"]
+scale = Vector2( 16, 9.375 )
+color = Color( 0.078, 0.0901333, 0.13, 0.4 )
+texture_scale = Vector2( 64, 64 )
+polygon = PoolVector2Array( -4, -6.82667, 68, -6.82667, 68, 68.2667, -4, 68.2667 )
+
+[node name="MainText" type="RichTextLabel" parent="Popups/PlayerHit"]
+margin_left = 192.0
+margin_top = 176.0
+margin_right = 832.0
+margin_bottom = 321.0
+theme = ExtResource( 16 )
+bbcode_enabled = true
+bbcode_text = "[center]You got hit.[/center]"
+text = "You got hit."
+fit_content_height = true
+
+[node name="PlayerWin" type="Control" parent="Popups"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 19 )
+
+[node name="ScreenFilter" type="Polygon2D" parent="Popups/PlayerWin"]
+scale = Vector2( 16, 9.375 )
+color = Color( 0.078, 0.0901333, 0.13, 0.4 )
+texture_scale = Vector2( 64, 64 )
+polygon = PoolVector2Array( -4, -6.82667, 68, -6.82667, 68, 68.2667, -4, 68.2667 )
+
+[node name="MainText" type="RichTextLabel" parent="Popups/PlayerWin"]
+margin_left = 256.0
+margin_top = 176.0
+margin_right = 768.0
+margin_bottom = 328.0
+theme = ExtResource( 16 )
+bbcode_enabled = true
+bbcode_text = "[center]You Win[/center]"
+text = "You Win"
+fit_content_height = true
+
+[node name="SubText" type="RichTextLabel" parent="Popups/PlayerWin"]
+margin_left = 352.0
+margin_top = 416.0
+margin_right = 672.0
+margin_bottom = 448.0
+theme = ExtResource( 17 )
+bbcode_enabled = true
+bbcode_text = "[center]Press [ESC] or [Enter] to exit.[/center]"
+text = "Press [ESC] or [Enter] to exit."
+fit_content_height = true
+
+[node name="DoorOpen" type="Control" parent="Popups"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 19 )
+
+[node name="MainText" type="RichTextLabel" parent="Popups/DoorOpen"]
+margin_left = 384.0
+margin_top = 512.0
+margin_right = 576.0
+margin_bottom = 544.0
+theme = ExtResource( 20 )
+bbcode_enabled = true
+bbcode_text = "[center]Door Opened[/center]"
+text = "Door Opened"
+fit_content_height = true
+
+[node name="TODO" type="Control" parent="Popups"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 19 )
+
+[node name="Text" type="RichTextLabel" parent="Popups/TODO"]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 1056.0
+margin_bottom = 608.0
+theme = ExtResource( 16 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+
+[/center]"
+text = "
+
+"
+fit_content_height = true

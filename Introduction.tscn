@@ -1,0 +1,162 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Fonts/theme_big.tres" type="Theme" id=1]
+[ext_resource path="res://Fonts/theme_small.tres" type="Theme" id=2]
+[ext_resource path="res://Scripts/InterfacePopup.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Main_Introduction.gd" type="Script" id=4]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CameraMain" type="Camera2D" parent="."]
+position = Vector2( 512, 288 )
+current = true
+
+[node name="Popup" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 3 )
+
+[node name="ScreenFilter" type="Polygon2D" parent="Popup"]
+scale = Vector2( 16, 9.375 )
+color = Color( 0.078, 0.0901333, 0.13, 0.4 )
+texture_scale = Vector2( 64, 64 )
+polygon = PoolVector2Array( -4, -6.82667, 68, -6.82667, 68, 68.2667, -4, 68.2667 )
+
+[node name="MainText" type="RichTextLabel" parent="Popup"]
+margin_right = 1024.0
+margin_bottom = 145.0
+theme = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Collect the Things[/center]"
+text = "Collect the Things"
+fit_content_height = true
+
+[node name="SubText_00" type="RichTextLabel" parent="Popup"]
+margin_left = 352.0
+margin_top = 544.0
+margin_right = 672.0
+margin_bottom = 576.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Press [ENTER] to continue.[/center]"
+text = "Press [ENTER] to continue."
+fit_content_height = true
+
+[node name="SubText_01" type="RichTextLabel" parent="Popup"]
+margin_left = 336.0
+margin_top = 480.0
+margin_right = 688.0
+margin_bottom = 538.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Press [ESC] at any time to exit.[/center]"
+text = "Press [ESC] at any time to exit."
+fit_content_height = true
+
+[node name="SubText_02" type="RichTextLabel" parent="Popup"]
+margin_left = 480.0
+margin_top = 256.0
+margin_right = 544.0
+margin_bottom = 288.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]or[/center]"
+text = "or"
+fit_content_height = true
+
+[node name="InstructionText_Arrows" type="Control" parent="Popup"]
+margin_left = 288.0
+margin_top = 320.0
+margin_right = 752.0
+margin_bottom = 384.0
+
+[node name="Text_00" type="RichTextLabel" parent="Popup/InstructionText_Arrows"]
+margin_top = 32.0
+margin_right = 96.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Press[/center]"
+text = "Press"
+fit_content_height = true
+
+[node name="Text_01" type="RichTextLabel" parent="Popup/InstructionText_Arrows"]
+margin_left = 192.0
+margin_right = 256.0
+margin_bottom = 32.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][UP][/center]"
+text = "[UP]"
+fit_content_height = true
+
+[node name="Text_02" type="RichTextLabel" parent="Popup/InstructionText_Arrows"]
+margin_left = 64.0
+margin_top = 32.0
+margin_right = 384.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][LEFT] [DOWN] [RIGHT][/center]"
+text = "[LEFT] [DOWN] [RIGHT]"
+fit_content_height = true
+
+[node name="Text_03" type="RichTextLabel" parent="Popup/InstructionText_Arrows"]
+margin_left = 368.0
+margin_top = 32.0
+margin_right = 464.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]to move [/center]"
+text = "to move "
+fit_content_height = true
+
+[node name="InstructionText_WASD" type="Control" parent="Popup"]
+margin_left = 368.0
+margin_top = 160.0
+margin_right = 676.0
+margin_bottom = 224.0
+
+[node name="Text_00" type="RichTextLabel" parent="Popup/InstructionText_WASD"]
+margin_top = 32.0
+margin_right = 96.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Press[/center]"
+text = "Press"
+fit_content_height = true
+
+[node name="Text_01" type="RichTextLabel" parent="Popup/InstructionText_WASD"]
+margin_left = 112.0
+margin_right = 176.0
+margin_bottom = 32.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][W][/center]"
+text = "[W]"
+fit_content_height = true
+
+[node name="Text_02" type="RichTextLabel" parent="Popup/InstructionText_WASD"]
+margin_left = 80.0
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center][A] [S] [D][/center]"
+text = "[A] [S] [D]"
+fit_content_height = true
+
+[node name="Text_03" type="RichTextLabel" parent="Popup/InstructionText_WASD"]
+margin_left = 208.0
+margin_top = 32.0
+margin_right = 304.0
+margin_bottom = 64.0
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]to move [/center]"
+text = "to move "
+fit_content_height = true
